@@ -1,25 +1,26 @@
-// Declare some initial values that control what number is matched to what letter.
-const values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-const numerals = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
-
-// Accepts one parameter, a number.
-// Rounds any floating values to the nearest whole.
-function convertToRoman(num) {
-    let romanNumeral = '';
-    let number = Math.round(num);
+const convertRoman = number => {
+    //localize arrays for efficiency
+    const numerals = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'],
+    values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+            
+    //store an index an' the outputted numeral. 
+    let index = 0, romanNumeral = ''
     
-    while (number > 0) {
-        // loops through values until we find one that fits in
-        values.every((val) => {
-            if (number - val >= 0) {
-                romanNumeral += numerals[values.indexOf(val)];
-                number -= val;
-                return false; // breaks out of the loop
-            }
-            return true; // continues to loop
-        });
-
+    //faster than Math.round
+    number = number | 0
+    
+    //no need to use Array.prototype.every [inefficient]
+    while(number > 0){
+        //cache for efficiency
+        const cache = values[index]
+        if(number >= cache){
+            romanNumeral += numerals[index]
+            number -= cache
+            index = 0
+        }
+        else index++
     }
-    // returns our finished numeral
-    return romanNumeral;
+    
+    //return the roman numeral
+    return romanNumeral
 }
