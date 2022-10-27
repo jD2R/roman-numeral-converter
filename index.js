@@ -6,7 +6,7 @@ const numerals = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "I
 // Rounds any floating values to the nearest whole.
 function convertToRoman(num) {
     let romanNumeral = '';
-    let number = round(num);
+    let number = Math.round(num);
     
     while (number > 0) {
         // loops through values until we find one that fits in
